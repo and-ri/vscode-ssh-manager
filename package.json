@@ -1,0 +1,125 @@
+{
+  "name": "ssh-manager",
+  "displayName": "SSH Manager",
+  "description": "Manage SSH connections in VS Code",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.93.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:ssh-manager-view"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "ssh-manager",
+          "title": "SSH Manager",
+          "icon": "resources/ssh-manager.svg"
+        }
+      ]
+    },
+    "views": {
+      "ssh-manager": [
+        {
+          "id": "ssh-manager-view",
+          "name": "SSH Manager"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "ssh-manager.addSection",
+        "title": "Add Section"
+      },
+      {
+        "command": "ssh-manager.removeSection",
+        "title": "Remove Section"
+      },
+      {
+        "command": "ssh-manager.renameSection",
+        "title": "Rename Section"
+      },
+      {
+        "command": "ssh-manager.addServer",
+        "title": "Add Server"
+      },
+      {
+        "command": "ssh-manager.removeServer",
+        "title": "Remove Server"
+      },
+      {
+        "command": "ssh-manager.editServer",
+        "title": "Edit Server"
+      },
+      {
+        "command": "ssh-manager.connectToServer",
+        "title": "Connect to Server"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "ssh-manager.addSection",
+          "when": "view == ssh-manager-view",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "ssh-manager.addServer",
+          "when": "viewItem == section",
+          "group": "inline"
+        },
+        {
+          "command": "ssh-manager.removeSection",
+          "when": "viewItem == section"
+        },
+        {
+          "command": "ssh-manager.renameSection",
+          "when": "viewItem == section"
+        },
+        {
+          "command": "ssh-manager.removeServer",
+          "when": "viewItem == server"
+        },
+        {
+          "command": "ssh-manager.editServer",
+          "when": "viewItem == server"
+        },
+        {
+          "command": "ssh-manager.connectToServer",
+          "when": "viewItem == server",
+          "group": "inline"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "SSH Manager",
+      "properties": {
+        "sshManager.savedConnections": {
+          "type": "array",
+          "default": [],
+          "description": "Saved SSH connections"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.93.0",
+    "@types/mocha": "^10.0.7",
+    "@types/node": "20.x",
+    "eslint": "^9.9.1",
+    "@vscode/test-cli": "^0.0.10",
+    "@vscode/test-electron": "^2.4.1"
+  }
+}
